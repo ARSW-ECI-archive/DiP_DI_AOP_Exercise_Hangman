@@ -12,27 +12,34 @@ malas prácticas de su programador en cuanto al manejo de excepciones (no propag
 1. Revise en el archivo de configuración de Spring los Beans definidos y sus dependencias.
 2. Cree un nuevo Bean, que se encargue de manejar los consejos (‘advice’) de los aspectos que se definan.
 3. En dicho Bean agregue un método que reciba por parámetro un objeto de tipo JoinPoint y otro de tipo Exception. Tenga en cuenta el nombre asignado a dicho parámetro, pues éste se usará en la configuración del aspecto.
+4. Teniendo en cuenta que en el método anterior se usará como 'consejo' (Advice) del aspecto, y que el mismo recibirá la excepción interceptada, haga que en éste se muestre la traza de la misma.
 4. Basado en la siguiente plantilla para la configuración de aspectos, defina un aspecto que se active cuando se arroje una excepción. Haga que como consejo (‘advice’) se imprima la traza de la excepción.
 
 	```java
 	<aop:config>
 		<aop:aspect ref="bean_aspectos">
-			<aop:pointcut expression="expresión del poincut" id="identif.pointcut"/>
 		
-		<aop:after-throwing throwing="nombre_var_excepcion" pointcut-ref="identif.pointcut" method="metodo_advice"/>	
+			<!-- Pointcut -->
+			<aop:pointcut expression="expresión del poincut" id="identif.pointcut"/>
+
+			<!-- Advice & Context (after, around, after throwing, etc) -->				
+			<aop:after-throwing throwing="nombre_var_excepcion" pointcut-ref="identif.pointcut" method="metodo_advice"/>	
 		</ aop:aspect>
-			<aop:aspect ref="bean_aspectos2">
+		
+		<aop:aspect ref="bean_aspectos2">
 			...
 		</ aop:aspect>
 	</aop:config>
 ```
 
 
-5. Puede encontrar mas información sobre programación orientada a aspectos y las expresiones de los pointcut la [documentación oficial de Spring](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html).
+5. Puede encontrar mas información sobre programación orientada a aspectos y las expresiones de los pointcut la [documentación oficial de Spring](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html) (en la misma busque la sección que inicia con '*Some examples of common pointcut expressions are given below*'.
 
 
-6. Pruebe el programa e intente identificar la causa del problema con los nuevos resultados obtenidos. Ahora, se quiere identificar si el método ‘execute’ de la clase MainProcessor se ejecuta un número determinado de veces a través de un aspecto, de manera que no
-se haga interferencia en el código existente. Sin embargo, para hacer más flexible el uso de este aspecto, se quiere que el mismo tenga como punto de corte (‘pointcut’) aquellos métodos que tengan una anotación en particular. Por otro lado, dicho aspecto tendrá como consejo (‘advice’) realizar el conteo del número de invocaciones e imprimir un mensaje en cuanto el límite de número de invocaciones indicado se alcance. Para hacer esto:
+6. Pruebe el programa e intente identificar la causa del problema con los nuevos resultados obtenidos. 
+
+
+7. Ahora, se quiere identificar si el método ‘execute’ de la clase MainProcessor se ejecuta un número determinado de veces a través de un aspecto, pero sin 'contaminar' el código existente. Sin embargo, para hacer más flexible el uso de este aspecto, se quiere que el mismo tenga como punto de corte (‘pointcut’) aquellos métodos que tengan una anotación en particular. Por otro lado, dicho aspecto tendrá como consejo (‘advice’) realizar el conteo del número de invocaciones e imprimir un mensaje en cuanto el límite de número de invocaciones indicado se alcance. Para hacer esto:
 
 	1. Implemente una nueva anotación para métodos ( @Target(value=ElementType.METHOD) )
 y con una retención de tipo “Runtime” (@Retention(RetentionPolicy.RUNTIME));
