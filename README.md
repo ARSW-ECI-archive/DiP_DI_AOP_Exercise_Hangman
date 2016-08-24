@@ -3,7 +3,7 @@
 ####Programación Orientada por Aspectos
 
 
-**Parte I. Ejemplo básico**.
+#####Parte I. Ejemplo básico
 
 
 En este repositoroio están los fuentes y las librerías de una aplicación que está generando errores, para la cual, debido a las
@@ -76,7 +76,7 @@ anotación, por lo que el método de joinPoint de alguna manera debe llevar cuen
 		* Límite de 15 invocaciones
 
 		
-**Parte II. Para la próxima clase**.
+#####Parte II. Para la próxima clase.
 
 AL ejercicio desarrollado anteriormente (procesador de palabras), se le quiere incorporar un esquema de *benchmarking* que NO QUEDE ACOPLADO al código existente, pues la idea es poder remover el mismo con facilidad -sin tener que tocar el código- una vez se tengan los datos.
 
