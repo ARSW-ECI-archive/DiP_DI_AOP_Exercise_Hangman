@@ -3,7 +3,7 @@
 ####Programación Orientada por Aspectos
 
 
-**Ejemplo básico**.
+**Parte I. Ejemplo básico**.
 
 
 En este repositoroio están los fuentes y las librerías de una aplicación que está generando errores, para la cual, debido a las
@@ -70,3 +70,30 @@ anotación, por lo que el método de joinPoint de alguna manera debe llevar cuen
 	
 		* Límite de 10 invocaciones
 		* Límite de 15 invocaciones
+
+		
+**Parte II. Para la próxima clase**.
+
+AL ejercicio desarrollado anteriormente (procesador de palabras), se le quiere incorporar un esquema de *benchmarking* que NO QUEDE ACOPLADO al código existente, pues la idea es poder remover el mismo con facilidad -sin tener que tocar el código- una vez se tengan los datos.
+
+1. Para poder realizar estadísticas de desempeño de las diferentes configuraciones que permite la aplicación, se quiere que los tiempos de ejecución de las operaciones de búsqueda de palabras, persistencia y carga de documentos puedan ser medidos. 
+
+	Específicamente, se quiere que un aspecto asociado a las operaciones antes mencionadas, se le pueda inyectar el componente que decide qué hacer con los tiempos medidos (y así flexibilizar las posibilidades de uso de estos datos). Por ahora, se quiere manejar dos variantes de dicho componente:
+
+	* Variante 1, para análisis estadístico: Concatena en un archivo de texto los tiempos calculados, usando el formato CSV (Comma Separated Values), de manera que se pueda abrir en una hoja de cálculo:
+	
+
+		| Timestamp        | Operación           | Tiempo(ms)  |
+| ------------- |:-------------:| -----:|
+| 1355563265      | Corrección | 1 |
+| 1355563267      | Corrección | 31 |
+| 1355563268      | Corrección | 12 |
+| 1355563344      | Persistencia doc     |   2 |
+| 1355563943 | Carga doc     |    30 |
+
+	* Variante 2, para análisis en vivo: A partir de unos valores T y N dados, este componente alertará con una ventana emergente y un sonido cuando se hayan dado N eventos de operaciones que hayan tomado más de T milisegundos.
+
+	Tip 1: Para este ejercicio vale la pena que revise [en la documentación oficial de Spring](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html) el uso de 'consejos' de tipo *Around*.
+
+	Tip 2: Para este caso, es útil usar anotaciones para marcar los *Pointcut* relevantes. Igualmente, en ambos casos, resulta útil definir campos dentro de la anotación en los que se puedan definir detalles que permitan tomar decisiones.
+	
