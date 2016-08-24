@@ -15,16 +15,16 @@ malas prácticas de su programador en cuanto al manejo de excepciones (no propag
 4. Basado en la siguiente plantilla para la configuración de aspectos, defina un aspecto que se active cuando se arroje una excepción. Haga que como consejo (‘advice’) se imprima la traza de la excepción.
 
 	```java
-<aop:config>
-	<aop:aspect ref="bean_aspectos">
-		<aop:pointcut expression="expresión del poincut" id="identif.pointcut"/>
+	<aop:config>
+		<aop:aspect ref="bean_aspectos">
+			<aop:pointcut expression="expresión del poincut" id="identif.pointcut"/>
 		
 		<aop:after-throwing throwing="nombre_var_excepcion" pointcut-ref="identif.pointcut" method="metodo_advice"/>	
-	</ aop:aspect>
-	<aop:aspect ref="bean_aspectos2">
-		...
-	 </ aop:aspect>
-</aop:config>
+		</ aop:aspect>
+			<aop:aspect ref="bean_aspectos2">
+			...
+		</ aop:aspect>
+	</aop:config>
 ```
 
 
