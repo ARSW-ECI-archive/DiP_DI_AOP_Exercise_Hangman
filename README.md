@@ -97,7 +97,8 @@ AL ejercicio desarrollado anteriormente (procesador de palabras), se le quiere i
 
 	* Variante 2, para análisis en vivo: A partir de unos valores T y N dados, este componente alertará con una ventana emergente y un sonido cuando se hayan dado N eventos de operaciones que hayan tomado más de T milisegundos.
 
-	Tip 1: Para este ejercicio vale la pena que revise [en la documentación oficial de Spring](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html) el uso de 'consejos' de tipo *Around*.
+	Tip 1: Recuerde incluír las dependencias necesarias para habilitar el soporte a AOP.
 
-	Tip 2: Para este caso, es útil usar anotaciones para marcar los *Pointcut* relevantes. Igualmente, en ambos casos, resulta útil definir campos dentro de la anotación en los que se puedan definir detalles que permitan tomar decisiones.
-	
+	Tip 2: Para este ejercicio vale la pena que revise [en la documentación oficial de Spring](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html) el uso de 'consejos' de tipo *Around*.
+
+	Tip 3: Para este caso, es útil usar anotaciones para marcar los *Pointcut* relevantes. Igualmente, en ambos casos, resulta útil definir campos dentro de la anotación en los que se puedan definir detalles que sirvan al aspecto para realizar su tarea.	
