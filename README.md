@@ -15,7 +15,7 @@ malas prácticas de su programador en cuanto al manejo de excepciones (no propag
 4. Teniendo en cuenta que en el método anterior se usará como 'consejo' (Advice) del aspecto, y que el mismo recibirá la excepción interceptada, haga que en éste se muestre la traza de la misma.
 4. Basado en la siguiente plantilla para la configuración de aspectos, defina un aspecto que se active cuando se arroje una excepción. Haga que como consejo (‘advice’) se imprima la traza de la excepción.
 
-	```java
+	```xml
 	<aop:config>
 		<aop:aspect ref="bean_aspectos">
 		
@@ -23,7 +23,11 @@ malas prácticas de su programador en cuanto al manejo de excepciones (no propag
 			<aop:pointcut expression="expresión del poincut" id="identif.pointcut"/>
 
 			<!-- Advice & Context (after, around, after throwing, etc) -->				
-			<aop:after-throwing throwing="nombre_var_excepcion" pointcut-ref="identif.pointcut" method="metodo_advice"/>	
+			<aop:after-throwing throwing="nombre_var_excepcion" pointcut-ref="identif.pointcut" method="metodo_advice"/>
+			
+			<!-- <aop:before pointcut-ref="xxxxx" method="yyyy"/>-->
+			<!-- <aop:after pointcut-ref="xxxxx" method="yyyy"/>-->
+				
 		</ aop:aspect>
 		
 		<aop:aspect ref="bean_aspectos2">
