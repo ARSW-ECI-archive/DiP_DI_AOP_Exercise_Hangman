@@ -105,20 +105,20 @@ AL ejercicio desarrollado anteriormente (procesador de palabras), se le quiere i
 	
 ##Criterios de evaluación
 
-	1. Parte I.
-		* Diseño:
-			* Se creó un aspecto que tiene como Pointcut una anotación, que tiene como 'consejo' (de tipo antes o después) el llevar una cuenta del número de invocaciones, y que muestra un aviso cuando se supera el valor dado como propiedad de la anotación antes mencionada. Se debe tener en cuenta que la anotación puede están en diferentes métodos, por lo que se deben llevar cuentas diferentes por cada uno de éstos (si se lleva una cuenta global, se evalúa como R).
-		* Funcional: 
-			* Se muestra la traza completa de la excepción cuando se analizan números negativos y se lanza la alerta cuando se supera el número de invocaciones.
+1. Parte I.
+	* Diseño:
+		* Se creó un aspecto que tiene como Pointcut una anotación, que tiene como 'consejo' (de tipo antes o después) el llevar una cuenta del número de invocaciones, y que muestra un aviso cuando se supera el valor dado como propiedad de la anotación antes mencionada. Se debe tener en cuenta que la anotación puede están en diferentes métodos, por lo que se deben llevar cuentas diferentes por cada uno de éstos (si se lleva una cuenta global, se evalúa como R).
+	* Funcional: 
+		* Se muestra la traza completa de la excepción cuando se analizan números negativos y se lanza la alerta cuando se supera el número de invocaciones.
 
-	2. Parte II.
-		* Diseño:
-			* Se creó un aspecto que tiene como Pointcut una anotación. El 'consejo' asociado al aspecto es de tipo 'around' y mide los tiempos de ejecución de aquellos métodos que tengan la anotación.
-			* El Bean que tiene asociado el 'consejo' del aspecto antes mencionado cumple con el principio de inversión de dependencias al tener asociada una abstracción del manejo de los tiempos. La configuración de la aplicación debe permitir inyectar al aspecto un manejador de tiempos que registre los tiempos en un archivo CSV, o uno alternativo que muestre una alerta cada vez que los tiempos superan un intervalo determinado.
+2. Parte II.
+	* Diseño:
+		* Se creó un aspecto que tiene como Pointcut una anotación. El 'consejo' asociado al aspecto es de tipo 'around' y mide los tiempos de ejecución de aquellos métodos que tengan la anotación.
+		* El Bean que tiene asociado el 'consejo' del aspecto antes mencionado cumple con el principio de inversión de dependencias al tener asociada una abstracción del manejo de los tiempos. La configuración de la aplicación debe permitir inyectar al aspecto un manejador de tiempos que registre los tiempos en un archivo CSV, o uno alternativo que muestre una alerta cada vez que los tiempos superan un intervalo determinado.
 			Nota: El manejar diferentes aspectos, en lugar de uno solo al que se le inyecte el mecanismo del manejo de los tiempos, tendrá evaluación R, pues esto implica tener código duplicado.
-		* Funcionalidad (se debe conservar la funcioanlidad anterior):
-			* Según la configuración que se tenga, la nueva versión del procesador de palabras:
-				* Registra en un archivo CSV los tiempos medidos durante su ejecución.
-				* Se debe mostrar un aviso emergente y un sonido(opcional) cuando se superan los tiempos de ejecución.
+	* Funcionalidad (se debe conservar la funcioanlidad anterior):
+		* Según la configuración que se tenga, la nueva versión del procesador de palabras:
+			* Registra en un archivo CSV los tiempos medidos durante su ejecución.
+			* Se debe mostrar un aviso emergente y un sonido(opcional) cuando se superan los tiempos de ejecución.
 			
 
