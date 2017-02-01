@@ -78,30 +78,34 @@ anotación, por lo que el método de joinPoint de alguna manera debe llevar cuen
 		
 #####Parte II. Para la próxima clase.
 
-AL ejercicio desarrollado anteriormente (procesador de palabras), se le quiere incorporar un esquema de *benchmarking* que NO QUEDE ACOPLADO al código existente, pues la idea es poder remover el mismo con facilidad -sin tener que tocar el código- una vez se tengan los datos.
+Se le ha pedido que para el ejercicio desarrollado anteriormente (Hangman), se implemente un mecanismo que recoja datos del comportamiento de los jugadores para investigación en temas de neurología. Sin embargo, se quiere que este mecanismo de recolección de datos sea por completo desacoplado al código existente, pues la idea es poder remover el mismo con facilidad -sin tener que tocar el código- una vez se tengan los datos.
 
-1. Para poder realizar estadísticas de desempeño de las diferentes configuraciones que permite la aplicación, se quiere que los tiempos de ejecución de las operaciones de búsqueda de palabras, persistencia y carga de documentos puedan ser medidos. 
+Se requiere entonces definir una serie de aspectos que permita:
 
-	Específicamente, se quiere que un aspecto asociado a las operaciones antes mencionadas, se le pueda inyectar el componente que decide qué hacer con los tiempos medidos (y así flexibilizar las posibilidades de uso de estos datos). Por ahora, se quiere manejar dos variantes de dicho componente:
+1. Interceptar cada ensayo realizado por el usuario (la elección de una letra), si el mismo fue exitoso o no, y el tiempo tomado entre elección y elección.
+2. Cada vez el juego es reiniciado (bien sea porque se adivinó la palabra o porque se ahorcó), consolidar los datos de la partida calculando:
+	* El promedio de tiempo, en milisegundos, entre intento e intento.
+	* El número de letras acertadas.
 
-	* Variante 1, para análisis estadístico: Concatena en un archivo de texto los tiempos calculados, usando el formato CSV (Comma Separated Values), de manera que se pueda abrir en una hoja de cálculo:
-	
+Por ahora, se tienen identificados dos mecanismos (y eventualmente más en el futuro) a través de los cuales se enviará la información a quienes quieren hacer investigación con los resultados:
 
-		| Timestamp        | Operación           | Tiempo(ms)  |
-| ------------- |:-------------:| -----:|
-| 1355563265      | Corrección | 1 |
-| 1355563267      | Corrección | 31 |
-| 1355563268      | Corrección | 12 |
-| 1355563344      | Persistencia doc     |   2 |
-| 1355563943 | Carga doc     |    30 |
+1. Imprimiendo por consola los resultados, cuando el juego sea usado en el mismo sitio de la investigación.
+2. Enviando los resultados por correo electrónico cuando el sujeto que hace la prueba trabaja remotamente. Para este, puede basarse [ejemplos de javamail existentes](https://github.com/PDSW-ECI/javamail), y usando como destino del correo (para probar su funcionamiento) el servicio de [MailTrap](https://mailtrap.io/).
 
-	* Variante 2, para análisis en vivo: A partir de unos valores T y N dados, este componente alertará con una ventana emergente y un sonido cuando se hayan dado N eventos de operaciones que hayan tomado más de T milisegundos.
+
+
+
+Para todo lo anterior tenga en cuenta:
+
+- Para crear sus aspectos, primero debe identificar qué operaciones debe interceptar, y así poder definir los	Puntos de Corte (pointcut).
+- Se va a usar el mecanismo de 'tejido' basado en _proxies_ dinámicos, lo cual requiere que los métodos interceptados estén definidos en clases que tengan la categoría de _Bean_. Es decir, eventualmente tendrá que ajustar el esquema de inversión de dependencias - inyección de dependencias del ejercicio anterior.
+- Como en este caso el consejo (Advice) del Aspecto a ser desarrollado tienen un comportamiento -a partir de los datos recogidos- que puede variar (dos en principio), se debe aplicar al mismo el principio de Inversión de Dependencias y la configuración para la Inyección de dependencias que corresponda.
+
 
 	Tip 1: Recuerde incluír las dependencias necesarias para habilitar el soporte a AOP.
 
 	Tip 2: Para este ejercicio vale la pena que revise [en la documentación oficial de Spring](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html) el uso de 'consejos' de tipo *Around*.
 
-	Tip 3: Para este caso, es útil usar anotaciones para marcar los *Pointcut* relevantes. Igualmente, en ambos casos, resulta útil definir campos dentro de la anotación en los que se puedan definir detalles que sirvan al aspecto para realizar su tarea.	
 	
 ##Criterios de evaluación
 
@@ -113,12 +117,12 @@ AL ejercicio desarrollado anteriormente (procesador de palabras), se le quiere i
 
 2. Parte II.
 	* Diseño:
-		* Se creó un aspecto que tiene como Pointcut una anotación. El 'consejo' asociado al aspecto es de tipo 'around' y mide los tiempos de ejecución de aquellos métodos que tengan la anotación.
-		* El Bean que tiene asociado el 'consejo' del aspecto antes mencionado cumple con el principio de inversión de dependencias al tener asociada una abstracción del manejo de los tiempos. La configuración de la aplicación debe permitir inyectar al aspecto un manejador de tiempos que registre los tiempos en un archivo CSV, o uno alternativo que muestre una alerta cada vez que los tiempos superan un intervalo determinado.
-			Nota: El manejar diferentes aspectos, en lugar de uno solo al que se le inyecte el mecanismo del manejo de los tiempos, tendrá evaluación R, pues esto implica tener código duplicado.
+		* Se creó un aspecto que intercepta la realización de cada intento en el juego y que, como 'consejo', captura los resultados del mismo.
+		* Se creó un aspecto que intercepta la finalizaición del juego y que, como 'consejo', consolida y procesa los resultados.
+		* El Bean que tiene asociado el 'consejo' del aspecto antes mencionado cumple con el principio de inversión de dependencias al tener asociada una abstracción para el procesamiento de los datos. La configuración de la aplicación debe permitir inyectar al aspecto un manejador de los resultados.
 	* Funcionalidad (se debe conservar la funcioanlidad anterior):
-		* Según la configuración que se tenga, la nueva versión del procesador de palabras:
-			* Registra en un archivo CSV los tiempos medidos durante su ejecución.
-			* Se debe mostrar un aviso emergente y un sonido(opcional) cuando se superan los tiempos de ejecución.
+		* Según la configuración que se tenga, el juego debe permitir:
+			* Mostrar las estadísticas del juego por consola.
+			* Enviar las estadísticas del juego a un correo electrónico.
 			
 
